@@ -1,0 +1,42 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: backend/CuteDatingScheduler.Api/Dockerfile
+    container_name: cute-dating-api
+    restart: unless-stopped
+    depends_on:
+      - mongodb
+      - mailpit
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: http://+:5000
+      MongoDb__ConnectionString: mongodb://mongodb:27017
+      MongoDb__DatabaseName: cute_dating_scheduler
+      Admin__Password: ${ADMIN_PASSWORD:?Set ADMIN_PASSWORD in .env before starting the API}
+      Email__Host: mailpit
+      Email__Port: 1025
+      Email__PublicApiBaseUrl: http://localhost:5000
+    ports:
+      - "5000:5000"
+    volumes:
+      - cute-dating-uploads:/app/wwwroot/uploads
+  mongodb:
+    image: mongo:7
+    container_name: cute-dating-mongodb
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    volumes:
+      - cute-dating-mongo-data:/data/db
+  mailpit:
+    image: axllent/mailpit:latest
+    container_name: cute-dating-mailpit
+    restart: unless-stopped
+    ports:
+      - "1025:1025"
+      - "8025:8025"
+
+volumes:
+  cute-dating-mongo-data:
+  cute-dating-uploads:

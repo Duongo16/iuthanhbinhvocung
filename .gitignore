@@ -1,0 +1,14 @@
+node_modules/
+.next/
+.next-dev/
+out/
+dist/
+*.log
+.env
+.env.local
+backend/CuteDatingScheduler.Api/appsettings.Development.json
+*.tsbuildinfo
+bin/
+obj/
+backend/CuteDatingScheduler.Api/wwwroot/uploads/*
+!backend/CuteDatingScheduler.Api/wwwroot/uploads/.gitkeep

@@ -1,0 +1,9 @@
+node_modules
+.next
+.next-dev
+.git
+.env
+backend/**/bin
+backend/**/obj
+backend/**/wwwroot/uploads/*
+!backend/**/wwwroot/uploads/.gitkeep
